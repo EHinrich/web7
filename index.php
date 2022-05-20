@@ -249,6 +249,8 @@ else {
     // TODO: тут необходимо удалить остальные Cookies.
   }
 
+  print $_POST['csrf'];
+  print $token;
   // Проверяем меняются ли ранее сохраненные данные или отправляются новые.
   if (!empty($_COOKIE[session_name()]) &&
       session_start() && !empty($_SESSION['login']) && !strcmp($_POST['csrf'],$token)) {
