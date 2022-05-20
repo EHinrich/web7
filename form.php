@@ -130,7 +130,7 @@ if (!empty($messages)) {
                          <?php if($values['check']==TRUE){print 'checked';} ?> />
                   С контрактом ознакомлен
               </label><br />
-                 <input tupy="hidden" name="csrf" value="<?php print $token; ?>">
+                 <input type="hidden" name="csrf" value="<?php print $token; ?>">
       
               Отправить данные:
               <input type="submit" value="Отправить" />
