@@ -251,7 +251,7 @@ else {
 
   // Проверяем меняются ли ранее сохраненные данные или отправляются новые.
   if (!empty($_COOKIE[session_name()]) &&
-      session_start() && !empty($_SESSION['login']) && if ($_POST['csrf']==$token)) {
+      session_start() && !empty($_SESSION['login']) && ($_POST['csrf']==$token)) {
     // TODO: перезаписать данные в БД новыми данными,
     // кроме логина и пароля.
     
