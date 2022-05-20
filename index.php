@@ -134,9 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     
     printf('Вход с логином %s', $_SESSION['login']);
     $messages[] = sprintf('Вы можете <a href="login.php">выйти</a>');
-  }
-  else {
-    $messages[] = sprintf('Вы можете <a href="login.php">войти</a> если уже зарегистрированы');
     $permitted_chars3 = 'abcdefghijklmnopqrstuvwxyz';
     $permitted_chars4 = '0123456789';
     $secret = substr(str_shuffle($permitted_chars3), 0, 6);
@@ -145,6 +142,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $messages[] = sprintf($token);
     if ($token==$token) 
       $messages[] = sprintf('1');
+  }
+  else {
+    $messages[] = sprintf('Вы можете <a href="login.php">войти</a> если уже зарегистрированы');
   }
 
   // Включаем содержимое файла form.php.
