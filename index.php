@@ -156,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $secret = substr(str_shuffle($permitted_chars3), 0, 6);
     $salt = substr(str_shuffle($permitted_chars4), 0, 4);
     $token = $salt . ":" . md5($salt . ":" . $secret);
+    $_SESSION['csrf'] = $token;
   include('form.php');
 }
 // Иначе, если запрос был методом POST, т.е. нужно проверить данные и сохранить их в XML-файл.
@@ -257,11 +258,9 @@ else {
     // TODO: тут необходимо удалить остальные Cookies.
   }
 
-  print $_POST['csrf'];
-  print $token;
   // Проверяем меняются ли ранее сохраненные данные или отправляются новые.
   if (!empty($_COOKIE[session_name()]) &&
-      session_start() && !empty($_SESSION['login']) && ($_POST['csrf'] == $token)) {
+      session_start() && !empty($_SESSION['login']) && ($_SESSION['csrf'] == $token)) {
     // TODO: перезаписать данные в БД новыми данными,
     // кроме логина и пароля.
     
