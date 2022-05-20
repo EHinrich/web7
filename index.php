@@ -115,14 +115,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $stmt = $db->prepare("SELECT * FROM form2 WHERE login = '$login'");
     $stmt->execute();
     foreach ($stmt as $row) {
-      $values['name']=$row["name"];
-      $values['email'] = $row["email"];
-      $values['year'] = $row["year"];
-      $values['radio-group-1'] = $row["sex"];
-      $values['radio-group-2'] = $row["number_of_limbs"];
-      $values['super'] = $row["superpowers"];
-      $values['bio'] = $row["biography"];
-      $values['check'] = $row["checkbox"];
+      $values['name']=strip_tags($row["name"]);
+      $values['email'] = strip_tags($row["email"]);
+      $values['year'] = strip_tags($row["year"]);
+      $values['radio-group-1'] = strip_tags($row["sex"]);
+      $values['radio-group-2'] = strip_tags($row["number_of_limbs"]);
+      $values['super'] = strip_tags($row["superpowers"]);
+      $values['bio'] = strip_tags($row["biography"]);
+      $values['check'] = strip_tags($row["checkbox"]);
       }
 
     }
