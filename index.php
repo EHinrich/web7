@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $permitted_chars4 = '0123456789';
     $secret = substr(str_shuffle($permitted_chars3), 0, 6);
     $salt = substr(str_shuffle($permitted_chars4), 0, 4);
-    $token = $salt + ":" + md5($salt + ":" + $secret);
+    $token = $salt . ":" . md5($salt . ":" . $secret);
     
     // TODO: загрузить данные пользователя из БД
     // и заполнить переменную $values,
