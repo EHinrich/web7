@@ -143,6 +143,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $salt = substr(str_shuffle($permitted_chars4), 0, 4);
     $token = $salt . ":" . md5($salt . ":" . $secret);
   $messages[] = sprintf($token);
+    if ($token==$token) 
+      $messages[] = sprintf('1');
   }
 
   // Включаем содержимое файла form.php.
