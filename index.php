@@ -102,6 +102,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   // Если нет предыдущих ошибок ввода, есть кука сессии, начали сессию и
   // ранее в сессию записан факт успешного логина.
   if (session_start() && !empty($_SESSION['login'])) {
+    // Генерируем токен
+    $permitted_chars3 = 'abcdefghijklmnopqrstuvwxyz';
+    $permitted_chars4 = '0123456789';
+    $secret = substr(str_shuffle($permitted_chars3), 0, 6);
+    $salt = substr(str_shuffle($permitted_chars4), 0, 4);
+    $token = $salt + ":" + md5($salt + ":" + $secret);
+    
     // TODO: загрузить данные пользователя из БД
     // и заполнить переменную $values,
     // предварительно санитизовав.
@@ -145,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   include('form.php');
 }
 // Иначе, если запрос был методом POST, т.е. нужно проверить данные и сохранить их в XML-файл.
-else {
+else if ($_POST['csrf']==$token){
   // Проверяем ошибки.
   $errors = FALSE;
   $errors2 = FALSE;
