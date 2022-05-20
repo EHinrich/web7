@@ -150,16 +150,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   // Включаем содержимое файла form.php.
   // В нем будут доступны переменные $messages, $errors и $values для вывода 
   // сообщений, полей с ранее заполненными данными и признаками ошибок.
-  include('form.php');
-}
-// Иначе, если запрос был методом POST, т.е. нужно проверить данные и сохранить их в XML-файл.
-else {
   // Генерируем токен
     $permitted_chars3 = 'abcdefghijklmnopqrstuvwxyz';
     $permitted_chars4 = '0123456789';
     $secret = substr(str_shuffle($permitted_chars3), 0, 6);
     $salt = substr(str_shuffle($permitted_chars4), 0, 4);
     $token = $salt . ":" . md5($salt . ":" . $secret);
+  include('form.php');
+}
+// Иначе, если запрос был методом POST, т.е. нужно проверить данные и сохранить их в XML-файл.
+else {
   // Проверяем ошибки.
   $errors = FALSE;
   $errors2 = FALSE;
@@ -261,7 +261,7 @@ else {
   print $token;
   // Проверяем меняются ли ранее сохраненные данные или отправляются новые.
   if (!empty($_COOKIE[session_name()]) &&
-      session_start() && !empty($_SESSION['login']) && !strcmp($_POST['csrf'],$token)) {
+      session_start() && !empty($_SESSION['login']) && ($_POST['csrf'] == $token)) {
     // TODO: перезаписать данные в БД новыми данными,
     // кроме логина и пароля.
     
