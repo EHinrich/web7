@@ -137,18 +137,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   }
   else {
     $messages[] = sprintf('Вы можете <a href="login.php">войти</a> если уже зарегистрированы');
+    $permitted_chars3 = 'abcdefghijklmnopqrstuvwxyz';
+    $permitted_chars4 = '0123456789';
+    $secret = substr(str_shuffle($permitted_chars3), 0, 6);
+    $salt = substr(str_shuffle($permitted_chars4), 0, 4);
+    $token = $salt . ":" . md5($salt . ":" . $secret);
+  $messages[] = sprintf($token);
   }
 
   // Включаем содержимое файла form.php.
   // В нем будут доступны переменные $messages, $errors и $values для вывода 
   // сообщений, полей с ранее заполненными данными и признаками ошибок.
   include('form.php');
-  $permitted_chars3 = 'abcdefghijklmnopqrstuvwxyz';
-    $permitted_chars4 = '0123456789';
-    $secret = substr(str_shuffle($permitted_chars3), 0, 6);
-    $salt = substr(str_shuffle($permitted_chars4), 0, 4);
-    $token = $salt . ":" . md5($salt . ":" . $secret);
-  $messages[] = sprintf($token);
 }
 // Иначе, если запрос был методом POST, т.е. нужно проверить данные и сохранить их в XML-файл.
 else {
